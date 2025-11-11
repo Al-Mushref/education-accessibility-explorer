@@ -18,7 +18,7 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, service: "server", time: new Date().toISOString() });
 });
 
-app.get("/api/db/health", async (req, res) => {
+app.get("/api/db/health", async (_, res) => {
   try {
     const conn = await pool.getConnection();
     try {

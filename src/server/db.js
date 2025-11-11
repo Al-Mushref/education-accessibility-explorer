@@ -10,8 +10,6 @@ export async function getPool(env) {
     waitForConnections: true,
     connectionLimit: 5,
     queueLimit: 0,
-    // If your instance REQUIRES SSL, uncomment the next line and provide CA:
-    // ssl: { rejectUnauthorized: false }
   });
   return pool;
 }
