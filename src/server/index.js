@@ -42,13 +42,12 @@ app.get("/api/db/health", async (_, res) => {
 
 app.get("/api/districts", async (req, res) => {
   try {
-    const limit = Math.max(
-      1,
-      Math.min(50, parseInt(req.query.limit || "8", 10))
-    );
+    // const limit = Math.max(
+    //   1,
+    //   Math.min(50, parseInt(req.query.limit || "200", 10))
+    // );
     const [rows] = await pool.query(
-      "SELECT districtId, name, website FROM school_districts ORDER BY name LIMIT ?",
-      [limit]
+      "SELECT districtId, name, website FROM school_districts ORDER BY name",
     );
     res.json({ ok: true, rows });
   } catch (e) {
