@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { getPool } from "./db.js";
+import { pool } from "./db.js";
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -11,8 +11,6 @@ const REQUIRED = ["DB_HOST", "DB_PORT", "DB_USER", "DB_PASS", "DB_NAME"];
 for (const k of REQUIRED) {
   if (!process.env[k]) console.warn(`[env] Missing ${k}`);
 }
-
-const pool = await getPool(process.env);
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, service: "server", time: new Date().toISOString() });
@@ -44,13 +42,12 @@ app.get("/api/db/health", async (_, res) => {
 
 app.get("/api/districts", async (req, res) => {
   try {
-    const limit = Math.max(
-      1,
-      Math.min(50, parseInt(req.query.limit || "8", 10))
-    );
+    // const limit = Math.max(
+    //   1,
+    //   Math.min(50, parseInt(req.query.limit || "200", 10))
+    // );
     const [rows] = await pool.query(
-      "SELECT districtId, name, website FROM school_districts ORDER BY name LIMIT ?",
-      [limit]
+      "SELECT districtId, name, website FROM school_districts ORDER BY name",
     );
     res.json({ ok: true, rows });
   } catch (e) {
