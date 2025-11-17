@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { getPool } from "./db.js";
+import { pool } from "./db.js";
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -11,8 +11,6 @@ const REQUIRED = ["DB_HOST", "DB_PORT", "DB_USER", "DB_PASS", "DB_NAME"];
 for (const k of REQUIRED) {
   if (!process.env[k]) console.warn(`[env] Missing ${k}`);
 }
-
-const pool = await getPool(process.env);
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, service: "server", time: new Date().toISOString() });
