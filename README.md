@@ -8,4 +8,5 @@
   Run `npm i` to install the dependencies.
 
   Run `npm run dev` to start the development server.
-  
+
+  Stage 4: Run `npm run dev:both` to start the client and server.
